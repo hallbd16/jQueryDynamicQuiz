@@ -1,0 +1,17 @@
+var allQuestions = [{
+        question: "1.  What is 4x6?",
+        choices: [46, 15, 25, 24],
+        correctAnswerIndex: 3
+    }, {
+        question: "2.  What is 21x 21?",
+        choices: [441, 2121, 388],
+        correctAnswerIndex: 0
+    }, {
+        question: "3.  Which number is prime?",
+        choices: [1, 5, 10, 39],
+        correctAnswerIndex: 1
+    }, {
+        question: "4.  What is 65/5",
+        choices: [3, 31, 12, 13, 21],
+        correctAnswerIndex: 3
+    }];

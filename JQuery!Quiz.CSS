@@ -1,0 +1,17 @@
+ #container {
+	background-color:#8BA7B2 ; 
+	width: 50% ;
+	position: relative; left: 25%;
+	margin: .5em ;
+	border: .15em solid black
+}
+
+h1 {
+text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
