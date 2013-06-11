@@ -2,6 +2,31 @@ $(function () {
 
 var answersSelected = [];
 var i = 0;
+var name;
+var prefix= "dynamicQuizStorage" //  localStorage prefix
+
+//Begin Quiz
+//Require name entry to begin quiz.  If repeat, get old data from localStorage.  Hide name field and begin quiz one name is submitted.
+$("#submitName").click(function(){
+	if($("#name").val()==='') {
+		alert('Please enter a name to take the quiz.'); 
+		return false;
+	}else{
+		name = $("#name").val();//set the global name variable		
+		//loop through local storage object.  If matching name exists set the value as the answersSelected array
+		for (var prop in localStorage) {  
+			if (prop === prefix+name) {
+				alert("Welcome back, " + name +".  Your previous answers have been set.");
+				answersSelected= localStorage.getItem(prefix+name).split(',');
+			}
+		}
+		$("#nameContainer").hide();
+		//next two function begin the quiz
+		populateQuestion();
+		createButtons();
+	}
+});//close enter name function
+
 
 
 function populateQuestion() {  
@@ -123,18 +148,22 @@ function createButtons() {
           } //close click function
     });// close prevButton
 
-	var submitButton= $('<button/>', {
+		var submitButton= $('<button/>', {
         text: 'Submit', 
         id: 'submitButton',
         click: function () {
+			console.log(name+" is the name ");
 			//prevent multiple clicks and default events
         	event.preventDefault();
         	if($("#insideContainer").filter(':animated').length>0) {return false;}
        	 	submitFinalAnswer();
-			
+			//save answers to a local copy
+			var keyName= prefix + name;
+			localStorage.setItem(keyName, answersSelected);
+			console.log(localStorage);
           } //close click function
     });// close submitButton
-
+    
 	var restartButton = $('<button>', {
 		text: "Restart",
 		id: "restartButton",
@@ -142,14 +171,12 @@ function createButtons() {
 			//prevent multiple clicks and default events
         	event.preventDefault();
         	if($("#insideContainer").filter(':animated').length>0) {return false;}
-
 			i= 0;
 			populateQuestion();
-
 			$("#restartButton").hide();
 		}
 	});
-
+	
 	//append buttons and set hidden buttons
 	$("#buttons").append(prevButton);
 	$("#prevButton").hide();
@@ -159,8 +186,5 @@ function createButtons() {
 	$("#buttons").append(restartButton);
 	$("#restartButton").hide();
 }
-
-populateQuestion();
-createButtons();
 
 }); //onload jQuery close
